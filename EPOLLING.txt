@@ -1,0 +1,193 @@
+// Practice project.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include<iostream>
+#include<conio.h>
+#include<Windows.h>
+using namespace std;
+
+       // Counters
+static int count_PMLN=0;
+static int count_PTI=0;
+static int count_PPP=0;
+
+      // Class Voter For Votnig Options
+class voter
+{
+public:
+	char Name[20];      // Name Of Voter 
+	char CNIC[15];     // CNIC of Voter
+    char vote_opt;     // For Options To Vote Which Party 
+	
+	 // Input Of Voter
+	void input()
+	{
+		cout<<"\nEnter Voter Name: ";
+		cin>>Name;
+		cout<<"\nEnter CNIC (XXXXX-XXXXXX-X): ";
+		cin>>CNIC;
+	}
+
+	 // Vote Casting Of Different Voters
+	void castvote()
+	{
+		cout<<"\nPress 1 To Vote PMLN\nPress 2 To Vote PTI\nPress 3 To Vote PPP : ";
+		cin>>vote_opt;
+		switch(vote_opt)
+		{
+		case '1':
+			cout<<"\nYou Have Entered Vote For PMLN\nThank You For Co_Operating Well";
+			count_PMLN++;
+			break;
+		case '2':
+			cout<<"\nYou Have Entered Vote For PTI\nThank You For Co_Operating Well";
+			count_PTI++;
+			break;
+		case '3':
+			cout<<"\nYou Have Entered Vote For PPP\nThank You For Co_Operating Well";
+			count_PPP++;
+			break;
+		default:
+			cout<<"\nInvalid Inpt";
+		}
+	}
+
+};
+
+
+  // Class Admin For Admin Use/Options
+class admin
+{
+public:
+	  // Announcement Of Result By Admin
+	void ann_result()
+	{
+		cout<<"\n\t\t----------------------------------------";
+		cout<<"\n\t\t   Result Of Voting ";
+		cout<<"\n\t\t----------------------------------------";
+		cout<<"\nTotal Votes Of PMLN: "<<count_PMLN;
+		cout<<"\nTotal Votes Of PPP: "<<count_PPP;
+		cout<<"\nTotal Votes Of PTI: "<<count_PTI;
+		if(count_PMLN>count_PPP && count_PMLN>count_PTI)
+			cout<<"\nPMLN Is Leading According To Current Situation OF The Election With Total Votes = "<<count_PMLN;
+		else if(count_PPP>count_PMLN && count_PPP>count_PTI)
+			cout<<"\nPPP Is Leading According To Current Situation OF The Election With Total Votes = "<<count_PPP;
+		else if(count_PTI>count_PPP && count_PTI>count_PMLN)
+			cout<<"\nPTI Is Leading According To Current Situation OF The Election With Total Votes = "<<count_PTI;
+		else
+			cout<<"\nError In Counting";
+	}
+
+	// Storing Information
+	void info()
+	{
+	cout<<"\n\t\t----------------------------------------";
+	cout<<"\n\t\t   Welcome To Information Area ";
+	cout<<"\n\t\t----------------------------------------";
+	cout<<"\nElction Year 2019";
+	cout<<"\nTotal Participating Parties are 3 Which Are \nPMLN...Chairman Shahbaz Shareef\nPPP...Chairman Bilawal Bhutto\nPTI...Chairman Imran khan";
+	cout<<"\nTotal Polling Centers Are 210 with 210 Digital Polling Machines";
+	cout<<"\nTotal Polling Officers Are 250";
+	}
+
+};
+
+
+int main()
+{
+	Start:    // Label 
+	voter v;  // Object Of voter Class
+	admin a;  // Object Of admin class
+	char menu_opt,exit_opt,pass_opt,admin_opt;   // menu_opt To Choose Administration Or Voting option...exit_opt To choose Next Voter Or Exit... 
+	char pass[10];                               // pass_opt To Choose Try Again Password Or Go to Main Menu...pass[10] To Store The Entered Password For Comparison... 
+	                                             //admin_opt To Choose Result Announcement Or Show Information
+	cout<<"\n\t\t----------------------------------------";
+		cout<<"\n\t\t   WELCOME TO ELECTRONIC POLLING ";
+		cout<<"\n\t\t----------------------------------------";
+		cout<<"\nPress 1 To Enter In Administration Or Press 2 To Enter In Voting Option: "; 
+		cin>>menu_opt;
+		switch(menu_opt)
+		{
+		case '1':
+			{
+				Pass: // Label
+				cout<<"\nEnter Password For Entrance = ";
+		        cin>>pass;
+
+				if(strcmp(pass,"rnr45321")==0)
+				{
+					system("cls");
+	        cout<<"\n\t\t----------------------------------------";
+		    cout<<"\n\t\t   WELCOME TO Administration Menu ";
+		    cout<<"\n\t\t----------------------------------------";
+			cout<<"\nPress 1 For Annoncing Result Or Press 2 To See All Information About Election: ";
+			cin>>admin_opt;
+			if(admin_opt=='1')
+			{
+				system("cls");
+		    	a.ann_result();   // Function Calling
+			    cout<<"\n\nPress 1 For Main Menu Or Press 2 For Exit: ";
+				cin>>exit_opt;
+				if(exit_opt=='1')
+				{
+					system("cls");
+					goto Start;
+				}
+			}
+			else
+			{
+				system("cls");
+				a.info();     // Function Calling
+				cout<<"\n\nPress 1 For Main Menu Or Press 2 For Exit: ";
+				cin>>exit_opt;
+				if(exit_opt=='1')
+				{
+					system("cls");
+					goto Start;
+				}
+			}
+				}
+
+				else
+				{
+					cout<<"\nWrong Password..........If You Want To Try Again Press 1 or Press 2 For Back To Main Menu: ";
+					cin>>pass_opt;
+					if(pass_opt=='1')
+					{
+						system("cls");
+						goto Pass;
+					}
+					else
+					{
+						system("cls");
+						goto Start;
+					}
+				}
+			break;
+			}
+		case '2':
+			{
+			cout<<"\n\t\t----------------------------------------";
+		    cout<<"\n\t\t        WELCOME TO Voting Menu ";
+		    cout<<"\n\t\t----------------------------------------";
+		    v.input();          // Function Calling
+			v.castvote();       // Function Calling
+			cout<<"\n\nFor Entry Of Next Voter Press 1 or Press 2 For Exit: ";
+			cin>>exit_opt;
+
+			if(exit_opt=='1')
+			{
+			system("cls");
+			goto Start;
+			}
+			break;
+			}
+		default:
+			cout<<"\nInvalid Input";
+
+		}
+	_getch();
+	return 0;
+}
+
